@@ -12,7 +12,7 @@ from dbgpt.configs.model_config import resolve_root_path
 from dbgpt.core.interface.parameter import BaseServerParameters
 from dbgpt.datasource.parameter import BaseDatasourceParameters
 from dbgpt.datasource.rdbms.base import RDBMSConnector, RDBMSDatasourceParameters
-from dbgpt_app.config import ApplicationConfig, ServiceConfig
+from dbgpt_app.config import ApplicationConfig, ServiceConfig, ServiceWebParameters
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(ROOT_PATH)
@@ -46,9 +46,12 @@ def server_init(param: ApplicationConfig, system_app: SystemApp):
     signal.signal(signal.SIGINT, signal_handler)
 
 
-def _create_model_start_listener(system_app: SystemApp):
+def _create_model_start_listener(system_app: SystemApp, param: ServiceWebParameters):
     def startup_event(wh):
         print("begin run _add_app_startup_event")
+        if not param.auto_db_summary_embedding:
+            logger.info("Auto DB summary embedding is disabled; skip startup scan.")
+            return
         async_db_summary(system_app)
 
     return startup_event

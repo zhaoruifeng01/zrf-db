@@ -62,6 +62,12 @@ knowledge_service = KnowledgeService()
 user_recent_app_dao = UserRecentAppsDao()
 
 
+def _auto_db_summary_embedding_enabled() -> bool:
+    app_config = CFG.SYSTEM_APP.config.configs.get("app_config")
+    web_config = getattr(getattr(app_config, "service", None), "web", None)
+    return bool(getattr(web_config, "auto_db_summary_embedding", False))
+
+
 def __get_conv_user_message(conversations: dict):
     messages = conversations["messages"]
     for item in messages:
@@ -222,6 +228,8 @@ async def db_connect_delete(db_name: str = None):
 @router.post("/v1/chat/db/refresh", response_model=Result[bool])
 async def db_connect_refresh(db_config: DBConfig = Body()):
     CFG.local_db_manager.db_summary_client.delete_db_profile(db_config.db_name)
+    if not _auto_db_summary_embedding_enabled():
+        return Result.succ(True)
     success = await CFG.local_db_manager.async_db_summary_embedding(
         db_config.db_name, db_config.db_type
     )

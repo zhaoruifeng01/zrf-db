@@ -337,7 +337,7 @@ def _init_deferred(param: ApplicationConfig):
         from dbgpt.model.cluster import initialize_worker_manager_in_client
 
         web_config = param.service.web
-        model_start_listener = _create_model_start_listener(system_app)
+        model_start_listener = _create_model_start_listener(system_app, web_config)
 
         # Register all components (embedding, AWEL, agent, serves, etc.)
         initialize_components(param, system_app)

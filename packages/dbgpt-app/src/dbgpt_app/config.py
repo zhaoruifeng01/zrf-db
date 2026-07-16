@@ -307,6 +307,15 @@ class ServiceWebParameters(BaseParameters):
         default=1000,
         metadata={"help": _("Maximum logged SQL template length")},
     )
+    auto_db_summary_embedding: bool = field(
+        default=False,
+        metadata={
+            "help": _(
+                "Whether to automatically build datasource schema summary "
+                "embeddings on startup and datasource changes"
+            )
+        },
+    )
     model_storage: Optional[str] = field(
         default=None,
         metadata={

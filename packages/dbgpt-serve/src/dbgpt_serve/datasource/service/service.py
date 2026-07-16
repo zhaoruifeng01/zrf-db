@@ -92,6 +92,11 @@ class Service(
             raise ValueError("SYSTEM_APP is not set")
         return ConnectorManager.get_instance(self._system_app)
 
+    def _auto_db_summary_embedding_enabled(self) -> bool:
+        app_config = self._system_app.config.configs.get("app_config")
+        web_config = getattr(getattr(app_config, "service", None), "web", None)
+        return bool(getattr(web_config, "auto_db_summary_embedding", False))
+
     @property
     def storage_manager(self) -> StorageManager:
         if not self._system_app:
@@ -149,15 +154,15 @@ class Service(
 
             res = self._dao.create(persisted_state)
 
-            # async embedding
-            executor = self._system_app.get_component(
-                ComponentType.EXECUTOR_DEFAULT, ExecutorFactory
-            ).create()  # type: ignore
-            executor.submit(
-                self._db_summary_client.db_summary_embedding,
-                db_name,
-                str_db_type,
-            )
+            if self._auto_db_summary_embedding_enabled():
+                executor = self._system_app.get_component(
+                    ComponentType.EXECUTOR_DEFAULT, ExecutorFactory
+                ).create()  # type: ignore
+                executor.submit(
+                    self._db_summary_client.db_summary_embedding,
+                    db_name,
+                    str_db_type,
+                )
         except Exception as e:
             raise ValueError("Add db connect info error!" + str(e))
         return self._to_query_response(res)
@@ -314,13 +319,13 @@ class Service(
         # to whatever caused the refresh; force a rebuild on next access.
         self.datasource_manager.invalidate_connector(db_config.db_name)
 
-        # async embedding
-        executor = self._system_app.get_component(
-            ComponentType.EXECUTOR_DEFAULT, ExecutorFactory
-        ).create()  # type: ignore
-        executor.submit(
-            self._db_summary_client.db_summary_embedding,
-            db_config.db_name,
-            db_config.db_type,
-        )
+        if self._auto_db_summary_embedding_enabled():
+            executor = self._system_app.get_component(
+                ComponentType.EXECUTOR_DEFAULT, ExecutorFactory
+            ).create()  # type: ignore
+            executor.submit(
+                self._db_summary_client.db_summary_embedding,
+                db_config.db_name,
+                db_config.db_type,
+            )
         return True

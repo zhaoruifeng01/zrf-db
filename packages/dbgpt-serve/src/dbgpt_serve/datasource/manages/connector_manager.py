@@ -122,6 +122,11 @@ class ConnectorManager(BaseComponent):
             raise ValueError("DBSummaryClient is not initialized")
         return self._db_summary_client
 
+    def _auto_db_summary_embedding_enabled(self) -> bool:
+        app_config = self.system_app.config.configs.get("app_config")
+        web_config = getattr(getattr(app_config, "service", None), "web", None)
+        return bool(getattr(web_config, "auto_db_summary_embedding", False))
+
     def _get_all_subclasses(
         self, cls: Type[BaseConnector]
     ) -> List[Type[BaseConnector]]:
@@ -499,15 +504,15 @@ class ConnectorManager(BaseComponent):
                     db_info.comment,
                     user_id,
                 )
-            # async embedding
-            executor = self.system_app.get_component(
-                ComponentType.EXECUTOR_DEFAULT, ExecutorFactory
-            ).create()  # type: ignore
-            executor.submit(
-                self.db_summary_client.db_summary_embedding,
-                db_info.db_name,
-                db_info.db_type,
-            )
+            if self._auto_db_summary_embedding_enabled():
+                executor = self.system_app.get_component(
+                    ComponentType.EXECUTOR_DEFAULT, ExecutorFactory
+                ).create()  # type: ignore
+                executor.submit(
+                    self.db_summary_client.db_summary_embedding,
+                    db_info.db_name,
+                    db_info.db_type,
+                )
         except Exception as e:
             raise ValueError("Add db connect info error!" + str(e))
 
