@@ -270,6 +270,44 @@ textarea {
   margin-top: 14px;
 }
 
+.permission-page {
+  display: grid;
+  gap: 14px;
+}
+
+.segmented-control {
+  display: inline-flex;
+  width: fit-content;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.segmented-control button {
+  min-width: 76px;
+  height: 30px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #475569;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.segmented-control button:hover {
+  background: #f1f5f9;
+}
+
+.segmented-control button.active,
+.segmented-control button:focus-visible {
+  background: #111827;
+  color: #ffffff;
+  outline: none;
+}
+
 .control {
   width: 100%;
   min-height: 36px;
@@ -295,6 +333,10 @@ textarea {
 textarea.control {
   min-height: 82px;
   resize: vertical;
+}
+
+.multi-control {
+  min-height: 92px;
 }
 
 .record-list,

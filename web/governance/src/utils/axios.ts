@@ -15,8 +15,30 @@ const instance = axios.create({
   },
 })
 
+export const permissionApi = axios.create({
+  baseURL: '/api/v1/serve/permission',
+  timeout: 300000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
 // 请求拦截器
 instance.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const token = localStorage.getItem('__db_gpt_token')
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  (error: AxiosError) => {
+    console.error('Request error:', error)
+    return Promise.reject(error)
+  }
+)
+
+permissionApi.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem('__db_gpt_token')
     if (token && config.headers) {
@@ -70,6 +92,20 @@ instance.interceptors.response.use(
     } else {
       // 其他错误
       console.error('请求错误:', error.message)
+    }
+    return Promise.reject(error)
+  }
+)
+
+permissionApi.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('__db_gpt_token')
+      localStorage.removeItem('__db_gpt_uinfo_key')
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login'
+      }
     }
     return Promise.reject(error)
   }
