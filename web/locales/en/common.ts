@@ -452,6 +452,7 @@ export const CommonEn = {
   home_subtitle: 'Agentic Data Driven Decisions',
   skills: 'Skills',
   datasources: 'Datasources',
+  governance: 'Data Governance',
   knowledge: 'Knowledge Base',
   management: 'Management',
   app_management: 'App Management',

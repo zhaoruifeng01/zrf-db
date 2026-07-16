@@ -457,6 +457,7 @@ export const CommonZh: Resources['translation'] = {
   home_subtitle: 'Agentic Data Driven Decisions',
   skills: '技能',
   datasources: '数据源',
+  governance: '数据治理',
   knowledge: '知识库',
   management: '管理',
   app_management: '应用管理',

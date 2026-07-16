@@ -170,6 +170,14 @@ function SideBar() {
         path: '/construct/database',
       },
       {
+        key: 'governance',
+        name: t('governance'),
+        isActive: pathname.startsWith('/construct/governance'),
+        iconSrc: '/pictures/app.png',
+        activeIconSrc: '/pictures/app_active.png',
+        path: '/construct/governance',
+      },
+      {
         key: 'knowledge',
         name: t('knowledge'),
         isActive: pathname.startsWith('/construct/knowledge'),
