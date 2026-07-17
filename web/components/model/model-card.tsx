@@ -3,7 +3,7 @@ import { IModelData } from '@/types/model';
 import { MODEL_ICON_MAP } from '@/utils';
 import { PauseCircleOutlined } from '@ant-design/icons';
 import { message } from 'antd';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import { useTranslation } from 'react-i18next';
 import GptCard from '../common/gpt-card';
 
@@ -78,7 +78,7 @@ function ModelCard({ info }: Props) {
         </div>
         <div className='flex overflow-hidden'>
           <p className='w-28 text-gray-500 mr-2'>Last Heart Beat:</p>
-          <p className='flex-1 text-ellipsis'>{moment(info.last_heartbeat).format('YYYY-MM-DD HH:mm:ss')}</p>
+          <p className='flex-1 text-ellipsis'>{dayjs(info.last_heartbeat).format('YYYY-MM-DD HH:mm:ss')}</p>
         </div>
       </div>
     </GptCard>

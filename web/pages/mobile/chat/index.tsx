@@ -329,10 +329,10 @@ const MobileChat: React.FC = () => {
     >
       <Spin
         size='large'
-        className='flex h-screen w-screen justify-center items-center max-h-screen'
+        className='flex h-dvh w-screen justify-center items-center max-h-dvh'
         spinning={historyLoading || appInfoLoading || resourceLoading || dialogueListLoading}
       >
-        <div className='flex flex-col h-screen bg-gradient-light dark:bg-gradient-dark p-4 pt-0'>
+        <div className='flex flex-col h-dvh bg-gradient-light dark:bg-gradient-dark p-4 pt-0'>
           <div ref={scrollViewRef} className='flex flex-col flex-1 overflow-y-auto mb-3'>
             <Header />
             <Content />

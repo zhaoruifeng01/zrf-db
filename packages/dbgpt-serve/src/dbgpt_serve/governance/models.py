@@ -22,7 +22,9 @@ class GovernanceDatasourcePolicyEntity(Model):
     health_message = Column(Text, nullable=True)
     health_checked_at = Column(DateTime, nullable=True)
     gmt_created = Column(DateTime, default=datetime.now, nullable=False)
-    gmt_modified = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+    gmt_modified = Column(
+        DateTime, default=datetime.now, onupdate=datetime.now, nullable=False
+    )
 
 
 class GovernanceRoleGrantEntity(Model):
@@ -31,7 +33,10 @@ class GovernanceRoleGrantEntity(Model):
     __tablename__ = "governance_role_grant"
     __table_args__ = (
         UniqueConstraint(
-            "role_code", "datasource_id", "table_pattern", "permission",
+            "role_code",
+            "datasource_id",
+            "table_pattern",
+            "permission",
             name="uk_governance_role_grant",
         ),
         Index("idx_governance_grant_datasource", "datasource_id"),
@@ -44,7 +49,9 @@ class GovernanceRoleGrantEntity(Model):
     permission = Column(String(32), nullable=False, default="query")
     allowed_columns = Column(Text, nullable=True)
     gmt_created = Column(DateTime, default=datetime.now, nullable=False)
-    gmt_modified = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+    gmt_modified = Column(
+        DateTime, default=datetime.now, onupdate=datetime.now, nullable=False
+    )
 
 
 class GovernanceMaskRuleEntity(Model):
@@ -53,7 +60,10 @@ class GovernanceMaskRuleEntity(Model):
     __tablename__ = "governance_mask_rule"
     __table_args__ = (
         UniqueConstraint(
-            "datasource_id", "table_name", "column_name", "role_code",
+            "datasource_id",
+            "table_name",
+            "column_name",
+            "role_code",
             name="uk_governance_mask_rule",
         ),
         Index("idx_governance_mask_datasource", "datasource_id"),
@@ -66,14 +76,18 @@ class GovernanceMaskRuleEntity(Model):
     role_code = Column(String(64), nullable=True)
     mask_type = Column(String(32), nullable=False, default="partial")
     gmt_created = Column(DateTime, default=datetime.now, nullable=False)
-    gmt_modified = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+    gmt_modified = Column(
+        DateTime, default=datetime.now, onupdate=datetime.now, nullable=False
+    )
 
 
 class GovernanceCatalogProductEntity(Model):
     """A manually published, governed data product."""
 
     __tablename__ = "governance_catalog_product"
-    __table_args__ = (UniqueConstraint("product_key", name="uk_governance_product_key"),)
+    __table_args__ = (
+        UniqueConstraint("product_key", name="uk_governance_product_key"),
+    )
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     product_key = Column(String(128), nullable=False, index=True)
@@ -86,7 +100,9 @@ class GovernanceCatalogProductEntity(Model):
     owner_user_id = Column(Integer, nullable=False, index=True)
     rate_limit_per_minute = Column(Integer, nullable=False, default=60)
     gmt_created = Column(DateTime, default=datetime.now, nullable=False)
-    gmt_modified = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+    gmt_modified = Column(
+        DateTime, default=datetime.now, onupdate=datetime.now, nullable=False
+    )
 
 
 class GovernanceAccessRequestEntity(Model):
@@ -103,7 +119,9 @@ class GovernanceAccessRequestEntity(Model):
     reviewer_user_id = Column(Integer, nullable=True)
     review_comment = Column(Text, nullable=True)
     gmt_created = Column(DateTime, default=datetime.now, nullable=False)
-    gmt_modified = Column(DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+    gmt_modified = Column(
+        DateTime, default=datetime.now, onupdate=datetime.now, nullable=False
+    )
 
 
 class GovernanceApiKeyEntity(Model):

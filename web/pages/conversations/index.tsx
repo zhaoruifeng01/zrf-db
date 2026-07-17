@@ -4,8 +4,7 @@ import { DeleteOutlined, MessageOutlined, SearchOutlined } from '@ant-design/ico
 import { useRequest } from 'ahooks';
 import { Empty, Input, Pagination, Popconfirm, Spin, Tooltip, message } from 'antd';
 import debounce from 'lodash/debounce';
-import moment from 'moment';
-import 'moment/locale/zh-cn';
+import { dayjs } from '@/utils/date';
 import { useRouter } from 'next/router';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -76,7 +75,7 @@ function ConversationsPage() {
 
   const formatTime = (dateStr?: string) => {
     if (!dateStr) return '';
-    return moment(dateStr).fromNow();
+    return dayjs(dateStr).fromNow();
   };
 
   const getTitle = (conv: IChatDialogueSchema) => {

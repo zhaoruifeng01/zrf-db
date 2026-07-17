@@ -181,7 +181,7 @@ const UserIcon: React.FC = () => {
 
   if (!user.avatar_url) {
     return (
-      <div className='flex items-center justify-center w-7 h-7 rounded-full bg-gradient-to-tr from-[#31afff] to-[#1677ff] text-xs text-white font-medium shadow-sm'>
+      <div className='flex items-center justify-center w-7 h-7 rounded-full bg-icon-gradient text-xs text-white font-medium shadow-sm'>
         {user?.nick_name?.charAt(0) || 'U'}
       </div>
     );

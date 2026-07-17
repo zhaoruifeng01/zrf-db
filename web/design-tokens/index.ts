@@ -7,6 +7,9 @@
 
 export * from './colors';
 
+import type { ThemeConfig } from 'antd';
+import { theme as antdTheme } from 'antd';
+
 import { antdTokens, borderRadius, fontSize, semanticColors, shadows, spacing, transitions, zIndex } from './colors';
 
 /**
@@ -54,10 +57,10 @@ export const tokens = {
 /**
  * Get Ant Design theme config based on mode
  */
-export function getAntdTheme(mode: 'light' | 'dark') {
+export function getAntdTheme(mode: 'light' | 'dark'): ThemeConfig {
   return {
     token: antdTokens[mode],
-    algorithm: mode === 'dark' ? 'dark' : undefined,
+    algorithm: mode === 'dark' ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
   };
 }
 

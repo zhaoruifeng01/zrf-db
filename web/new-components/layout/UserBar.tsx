@@ -36,7 +36,7 @@ function UserBar({ onlyAvatar = false }) {
         })}
       >
         <span className='flex gap-2 items-center'>
-          <Avatar src={userInfo?.avatar_url} className='bg-gradient-to-tr from-[#31afff] to-[#1677ff] cursor-pointer'>
+          <Avatar src={userInfo?.avatar_url} className='bg-icon-gradient cursor-pointer'>
             {userInfo?.nick_name}
           </Avatar>
           <span

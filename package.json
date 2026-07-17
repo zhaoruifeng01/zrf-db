@@ -1,0 +1,26 @@
+{
+  "name": "db-gpt-frontend-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "description": "DB-GPT frontend workspace root. See adr/0001-unify-frontend-stack.md.",
+  "packageManager": "pnpm@11.13.1",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=11"
+  },
+  "scripts": {
+    "typecheck": "pnpm -r --if-present run typecheck",
+    "lint": "pnpm -r --if-present run lint",
+    "lint:fix": "pnpm -r --if-present run lint:fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "pnpm -r --if-present run test",
+    "build": "pnpm -r --if-present run build"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "^4.0.0",
+    "prettier-plugin-packagejson": "^2.5.2",
+    "typescript": "^5.6.0"
+  }
+}

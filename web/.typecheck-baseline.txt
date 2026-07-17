@@ -1,0 +1,147 @@
+app/chat-context.tsx(147,45): error TS2345: Argument of type 'never[]' is not assignable to parameter of type 'Promise<ApiResponse<any, any>>'.
+components/agent/market-plugins.tsx(25,52): error TS2339: Property 'filter' does not exist on type 'PostAgentQueryParams'.
+components/agent/market-plugins.tsx(43,7): error TS2322: Type '{ page_index: number; page_size: number; filter: any; }' is not assignable to type 'PostAgentQueryParams'.
+components/agent/my-plugins.tsx(105,14): error TS2339: Property 'length' does not exist on type 'never[] | PostAgentMyPluginResponse'.
+components/agent/my-plugins.tsx(107,15): error TS2339: Property 'map' does not exist on type 'never[] | PostAgentMyPluginResponse'.
+components/agent/my-plugins.tsx(107,20): error TS7006: Parameter 'item' implicitly has an 'any' type.
+components/agent/my-plugins.tsx(107,26): error TS7006: Parameter 'index' implicitly has an 'any' type.
+components/app/app-modal.tsx(105,18): error TS2345: Argument of type '{ value: TeamMode; label: TeamMode; }[]' is not assignable to parameter of type 'SetStateAction<{ label: string; value: string; }[] | undefined>'.
+components/chart/autoChart/charts/multi-measure-column-chart.ts(8,58): error TS2345: Argument of type '("Nominal" | "Ordinal" | "Interval" | "Discrete" | "Continuous" | "Time")[] | undefined' is not assignable to parameter of type 'any[]'.
+components/chart/autoChart/charts/multi-measure-line-chart.ts(13,64): error TS2345: Argument of type '("Nominal" | "Ordinal" | "Interval" | "Discrete" | "Continuous" | "Time")[] | undefined' is not assignable to parameter of type 'any[]'.
+components/chat/agent-content.tsx(29,10): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+components/chat/chat-content/VisResponse.tsx(65,10): error TS2322: Type '{ children: any; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1 mo...' is not assignable to type 'GPTVisProps'.
+components/chat/chat-content/agent-messages.tsx(32,14): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+components/chat/chat-content/agent-plans.tsx(41,14): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+components/chat/chat-content/code-preview.tsx(31,8): error TS2786: 'SyntaxHighlighter' cannot be used as a JSX component.
+components/chat/chat-content/config.tsx(257,18): error TS2339: Property 'ordered' does not exist on type 'ClassAttributes<HTMLLIElement> & LiHTMLAttributes<HTMLLIElement> & ExtraProps'.
+components/chat/chat-content/html-preview.tsx(100,20): error TS2551: Property 'mozFullScreenElement' does not exist on type 'Document'. Did you mean 'fullscreenElement'?
+components/chat/chat-content/html-preview.tsx(101,20): error TS2551: Property 'msFullscreenElement' does not exist on type 'Document'. Did you mean 'fullscreenElement'?
+components/chat/chat-content/html-preview.tsx(173,14): error TS2339: Property 'requestFullscreen' does not exist on type 'never'.
+components/chat/chat-content/html-preview.tsx(174,12): error TS2339: Property 'requestFullscreen' does not exist on type 'never'.
+components/chat/chat-content/html-preview.tsx(175,21): error TS2339: Property 'webkitRequestFullscreen' does not exist on type 'never'.
+components/chat/chat-content/html-preview.tsx(177,12): error TS2339: Property 'webkitRequestFullscreen' does not exist on type 'never'.
+components/chat/chat-content/html-preview.tsx(178,21): error TS2339: Property 'msRequestFullscreen' does not exist on type 'never'.
+components/chat/chat-content/html-preview.tsx(18,24): error TS7031: Binding element 'code' implicitly has an 'any' type.
+components/chat/chat-content/html-preview.tsx(180,12): error TS2339: Property 'msRequestFullscreen' does not exist on type 'never'.
+components/chat/chat-content/html-preview.tsx(181,21): error TS2339: Property 'mozRequestFullScreen' does not exist on type 'never'.
+components/chat/chat-content/html-preview.tsx(183,12): error TS2339: Property 'mozRequestFullScreen' does not exist on type 'never'.
+components/chat/chat-content/html-preview.tsx(191,25): error TS2551: Property 'webkitExitFullscreen' does not exist on type 'Document'. Did you mean 'exitFullscreen'?
+components/chat/chat-content/html-preview.tsx(193,16): error TS2551: Property 'webkitExitFullscreen' does not exist on type 'Document'. Did you mean 'exitFullscreen'?
+components/chat/chat-content/html-preview.tsx(194,25): error TS2551: Property 'msExitFullscreen' does not exist on type 'Document'. Did you mean 'exitFullscreen'?
+components/chat/chat-content/html-preview.tsx(196,16): error TS2551: Property 'msExitFullscreen' does not exist on type 'Document'. Did you mean 'exitFullscreen'?
+components/chat/chat-content/html-preview.tsx(197,25): error TS2339: Property 'mozCancelFullScreen' does not exist on type 'Document'.
+components/chat/chat-content/html-preview.tsx(199,16): error TS2339: Property 'mozCancelFullScreen' does not exist on type 'Document'.
+components/chat/chat-content/html-preview.tsx(33,23): error TS7006: Parameter 'sourceCode' implicitly has an 'any' type.
+components/chat/chat-content/html-preview.tsx(99,20): error TS2551: Property 'webkitFullscreenElement' does not exist on type 'Document'. Did you mean 'fullscreenElement'?
+components/chat/chat-content/index.tsx(114,7): error TS2322: Type '({ children }: ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement> & ExtraProps) => string | number | ... 6 more ... | undefined' is not assignable to type 'keyof IntrinsicElements | Component<ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement> & ExtraProps> | undefined'.
+components/chat/chat-content/index.tsx(115,24): error TS18049: 'children' is possibly 'null' or 'undefined'.
+components/chat/chat-content/index.tsx(129,18): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+components/chat/chat-content/index.tsx(170,12): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+components/chat/chat-content/svg-preview.tsx(139,7): error TS18047: 'ctx' is possibly 'null'.
+components/chat/chat-content/svg-preview.tsx(163,28): error TS7006: Parameter 'value' implicitly has an 'any' type.
+components/chat/chat-content/svg-preview.tsx(20,23): error TS7031: Binding element 'code' implicitly has an 'any' type.
+components/chat/chat-content/svg-preview.tsx(27,24): error TS7006: Parameter 'svgCode' implicitly has an 'any' type.
+components/chat/chat-content/vis-tabs.tsx(120,12): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+components/chat/chat-content/vis-tabs.tsx(2,28): error TS2307: Cannot find module '@/utils/event-emitter' or its corresponding type declarations.
+components/chat/chat-content/vis-tasks.tsx(1,28): error TS2307: Cannot find module '@/utils/event-emitter' or its corresponding type declarations.
+components/chat/chat-default/index.tsx(140,12): error TS2741: Property 'type' is missing in type '{ apps: any; loading: boolean; refresh: () => void; }' but required in type '{ apps: IApp[]; loading: boolean; refresh: () => void; type: "recommend" | "used"; }'.
+components/chat/chat-default/index.tsx(66,32): error TS2339: Property 'length' does not exist on type '[] | AppListResponse'.
+components/chat/chat-feedback.tsx(86,66): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type 'FeedBack'.
+components/chat/db-editor.tsx(139,50): error TS2322: Type 'Key | undefined' is not assignable to type 'string | number | symbol | GetRowKey<any> | undefined'.
+components/chat/db-editor.tsx(249,31): error TS2339: Property 'sql' does not exist on type 'EditorValueProps | EditorValueProps[]'.
+components/chat/db-editor.tsx(250,33): error TS2339: Property 'thoughts' does not exist on type 'EditorValueProps | EditorValueProps[]'.
+components/chat/db-editor.tsx(272,18): error TS7053: Element implicitly has an 'any' type because expression of type 'number' can't be used to index type 'EditorValueProps | EditorValueProps[]'.
+components/chat/db-editor.tsx(405,20): error TS2322: Type 'Key' is not assignable to type 'string | number'.
+components/chat/db-editor.tsx(407,39): error TS2345: Argument of type 'Key' is not assignable to parameter of type 'string | number | undefined'.
+components/chat/db-editor.tsx(643,23): error TS2322: Type '{ columns: string[]; values: (string | number)[]; } | undefined' is not assignable to type 'ITableData | undefined'.
+components/chat/db-editor.tsx(663,15): error TS2322: Type '{ columns: string[]; values: (string | number)[]; } | undefined' is not assignable to type 'ITableData | undefined'.
+components/chat/monaco-editor.tsx(62,11): error TS2345: Argument of type '{ modelId: string; delimiter: string; }' is not assignable to parameter of type '{ _modelId: string; delimiter: string; }'.
+components/chat/ob-editor/ob-plugin.ts(6,10): error TS2339: Property 'obMonaco' does not exist on type 'Window & typeof globalThis'.
+components/chat/opencode-agent-chat-container.tsx(133,18): error TS2345: Argument of type '(h: any) => any[]' is not assignable to parameter of type 'ChatHistoryResponse'.
+components/chat/opencode-agent-chat-container.tsx(133,18): error TS7006: Parameter 'h' implicitly has an 'any' type.
+components/chat/opencode-agent-chat-container.tsx(246,39): error TS2345: Argument of type '["Start a conversation"]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+components/chat/opencode-agent-chat-container.tsx(79,20): error TS2345: Argument of type '(h: any) => any[]' is not assignable to parameter of type 'ChatHistoryResponse'.
+components/chat/opencode-agent-chat-container.tsx(79,20): error TS7006: Parameter 'h' implicitly has an 'any' type.
+components/common/configurable-form.tsx(48,24): error TS2339: Property 'forEach' does not exist on type 'ConfigurableParams'.
+components/common/configurable-form.tsx(48,32): error TS7006: Parameter 'field' implicitly has an 'any' type.
+components/common/configurable-form.tsx(50,15): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+components/common/configurable-form.tsx(78,19): error TS2352: Conversion of type 'NestedField' to type 'Record<string, ConfigurableParams[]>' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+components/common/nested-form-fields.tsx(33,7): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ type: string; }'.
+components/database/database-form.tsx(90,14): error TS2339: Property 'id' does not exist on type '{ type: DBType | undefined; params: any; description: any; }'.
+components/flow/flow-card.tsx(109,22): error TS2345: Argument of type '["Copy"]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+components/flow/node-handler.tsx(217,38): error TS2345: Argument of type 'IFlowNodeOutput' is not assignable to parameter of type 'IFlowNodeParameter'.
+components/flow/node-renderer/input.tsx(11,29): error TS2322: Type '{}' is not assignable to type 'IntrinsicAttributes & (Omit<AntdIconProps, "ref"> & RefAttributes<HTMLSpanElement> & Omit<IconComponentProps, "ref"> & CustomIconOptions & ProviderProps<...> & TwoToneColor)'.
+components/flow/node-renderer/input.tsx(11,29): error TS2786: 'IconComponent' cannot be used as a JSX component.
+components/model/model-card.tsx(27,17): error TS2345: Argument of type '{ host: string; port: number; model: string; worker_type: string; params: {}; }' is not assignable to parameter of type 'BaseModelParams'.
+components/model/model-form.tsx(106,24): error TS2339: Property 'forEach' does not exist on type 'ConfigurableParams'.
+components/model/model-form.tsx(106,32): error TS7006: Parameter 'field' implicitly has an 'any' type.
+components/model/model-form.tsx(108,17): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+new-components/chat/content/ChatContent.tsx(143,7): error TS2322: Type '({ children }: ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement> & ExtraProps) => string | number | ... 6 more ... | undefined' is not assignable to type 'keyof IntrinsicElements | Component<ClassAttributes<HTMLElement> & HTMLAttributes<HTMLElement> & ExtraProps> | undefined'.
+new-components/chat/content/ChatContent.tsx(144,24): error TS18049: 'children' is possibly 'null' or 'undefined'.
+new-components/chat/content/ChatContent.tsx(158,18): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+new-components/chat/content/ChatContent.tsx(186,20): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+new-components/chat/content/ChatContent.tsx(245,18): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+new-components/chat/content/ChatContent.tsx(251,20): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+new-components/chat/content/ChatDefault.tsx(66,32): error TS2339: Property 'length' does not exist on type '[] | AppListResponse'.
+new-components/chat/content/ManusRightPanel.tsx(1931,63): error TS2367: This comparison appears to be unintentional because the types '"question" | "sql" | "other" | "task" | "skill" | "edit" | "read" | "write" | "grep" | "glob"' and '"bash"' have no overlap.
+new-components/chat/content/ManusRightPanel.tsx(1933,59): error TS2367: This comparison appears to be unintentional because the types '"question" | "sql" | "other" | "task" | "skill" | "edit" | "read" | "write" | "grep" | "glob"' and '"python"' have no overlap.
+new-components/chat/content/ManusRightPanel.tsx(1934,63): error TS2367: This comparison appears to be unintentional because the types '"question" | "sql" | "other" | "task" | "skill" | "edit" | "read" | "write" | "grep" | "glob"' and '"html"' have no overlap.
+new-components/chat/content/ManusRightPanel.tsx(386,12): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+new-components/chat/content/ManusRightPanel.tsx(976,32): error TS2554: Expected 2 arguments, but got 1.
+new-components/chat/content/ManusStepCard.tsx(126,54): error TS2345: Argument of type 'TFunction<"translation", undefined>' is not assignable to parameter of type '(key: string) => string'.
+new-components/chat/input/KnowledgeSelector.tsx(25,17): error TS2345: Argument of type 'ISpace[]' is not assignable to parameter of type 'SetStateAction<ISpace[]>'.
+new-components/chat/input/KnowledgeSelector.tsx(50,23): error TS2345: Argument of type '["select_knowledge_base"]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+new-components/chat/input/KnowledgeSelector.tsx(66,30): error TS2345: Argument of type '["no_knowledge_spaces"]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+new-components/common/MarkdownContext.tsx(7,6): error TS2322: Type '{ children: string; remarkPlugins: (((options?: Options | null | undefined) => undefined) | (((options?: Readonly<ToOptions> | null | undefined) => undefined) | { ...; })[])[]; rehypePlugins: (((options?: Options | ... 1 more ... | undefined) => (tree: Root, file: VFile) => Root) | (((options?: Readonly<...> | ... 1...' is not assignable to type 'GPTVisProps'.
+new-components/connector/ConnectorForm.tsx(316,22): error TS2345: Argument of type '[string]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+new-components/connector/ConnectorForm.tsx(339,61): error TS2345: Argument of type '[string]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+new-components/scheduled-task/CronInput.tsx(129,86): error TS2345: Argument of type '[string]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+new-components/scheduled-task/TaskRunsTable.tsx(146,22): error TS2345: Argument of type '[string]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+pages/chat/index.tsx(139,15): error TS2448: Block-scoped variable 'handleChat' used before its declaration.
+pages/chat/index.tsx(139,15): error TS2454: Variable 'handleChat' is used before being assigned.
+pages/construct/agent/index.tsx(44,5): error TS2345: Argument of type '() => Promise<IAgentPlugin[] | PostAgentMyPluginResponse>' is not assignable to parameter of type 'Service<IAgentPlugin[], []>'.
+pages/construct/agent/index.tsx(53,9): error TS2322: Type '{ page_index: number; page_size: number; filter: { name: string | undefined; }; }' is not assignable to type 'PostAgentQueryParams'.
+pages/construct/app/extra/components/NativeApp.tsx(159,35): error TS2349: This expression is not callable.
+pages/construct/app/extra/components/NativeApp.tsx(204,29): error TS2345: Argument of type '["prompt"]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+pages/construct/app/extra/components/auto-plan/ResourcesCardV2.tsx(242,26): error TS2345: Argument of type 'MouseEvent<HTMLElement, MouseEvent> | undefined' is not assignable to parameter of type 'MouseEvent<Element, MouseEvent>'.
+pages/construct/app/index.tsx(244,11): error TS2554: Expected 1 arguments, but got 0.
+pages/construct/database.tsx(17,23): error TS2339: Property 'database' does not exist on type 'any[]'.
+pages/construct/database.tsx(17,48): error TS2339: Property 'project' does not exist on type 'any[]'.
+pages/construct/database.tsx(17,72): error TS2339: Property 'path' does not exist on type 'any[]'.
+pages/construct/database.tsx(246,78): error TS2339: Property 'path' does not exist on type 'any[]'.
+pages/construct/database.tsx(279,76): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+pages/construct/database.tsx(279,96): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+pages/construct/database.tsx(49,28): error TS2339: Property 'types' does not exist on type 'DbSupportTypeResponse'.
+pages/construct/dbgpts/index.tsx(39,5): error TS2345: Argument of type '() => Promise<IAgentPlugin[] | IMyPlugin[]>' is not assignable to parameter of type 'Service<IAgentPlugin[], []>'.
+pages/construct/prompt/[type]/index.tsx(226,35): error TS2345: Argument of type '"user_input"' is not assignable to parameter of type '"model" | "temperature" | ["temperature"] | ["model"] | "prompt_language" | ["prompt_language"]'.
+pages/construct/prompt/[type]/index.tsx(248,46): error TS2345: Argument of type '"user_input"' is not assignable to parameter of type '"model" | "temperature" | ["temperature"] | ["model"] | "prompt_language" | ["prompt_language"]'.
+pages/data_index.tsx(348,16): error TS2786: 'InfiniteLoader' cannot be used as a JSX component.
+pages/data_index.tsx(350,17): error TS2769: No overload matches this call.
+pages/data_index.tsx(354,20): error TS2786: 'AutoSizer' cannot be used as a JSX component.
+pages/data_index.tsx(356,24): error TS2786: 'Grid' cannot be used as a JSX component.
+pages/data_index.tsx(64,5): error TS2345: Argument of type '(app_name?: any, page_no?: any, page_size?: any) => Promise<never[] | SuccessTuple<[], any> | FailedTuple<[], any> | SuccessTuple<AppListResponse, any>>' is not assignable to parameter of type 'Service<[any, [] | AppListResponse], [app_name?: any, page_no?: any, page_size?: any]>'.
+pages/index.tsx(1676,27): error TS2345: Argument of type '(prev: Record<string, { steps: ExecutionStep[]; outputs: Record<string, ExecutionOutput[]>; activeStepId: string | null; collapsed: boolean; stepThoughts: Record<...>; }>) => { ...; }' is not assignable to parameter of type 'SetStateAction<Record<string, { steps: ExecutionStep[]; outputs: Record<string, ExecutionOutput[]>; activeStepId: string | null; collapsed: boolean; stepThoughts: Record<...>; }>>'.
+pages/index.tsx(1891,27): error TS2345: Argument of type '(prev: Record<string, { steps: ExecutionStep[]; outputs: Record<string, ExecutionOutput[]>; activeStepId: string | null; collapsed: boolean; stepThoughts: Record<...>; }>) => { ...; }' is not assignable to parameter of type 'SetStateAction<Record<string, { steps: ExecutionStep[]; outputs: Record<string, ExecutionOutput[]>; activeStepId: string | null; collapsed: boolean; stepThoughts: Record<...>; }>>'.
+pages/index.tsx(2029,24): error TS2345: Argument of type '[string]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+pages/index.tsx(2046,18): error TS2339: Property 'success' does not exist on type 'AxiosResponse<any, any>'.
+pages/index.tsx(2055,31): error TS2339: Property 'err_msg' does not exist on type 'AxiosResponse<any, any>'.
+pages/index.tsx(2075,19): error TS2339: Property 'dbName' does not exist on type '{ id: string; icon: string; title: string; description: string; query: string; fileName: string; fileType: string; fileSize: number; color: string; borderColor: string; iconBg: string; skillName: string; } | { ...; }'.
+pages/index.tsx(2076,83): error TS2339: Property 'dbName' does not exist on type '{ id: string; icon: string; title: string; description: string; query: string; fileName: string; fileType: string; fileSize: number; color: string; borderColor: string; iconBg: string; skillName: string; } | { ...; }'.
+pages/index.tsx(2383,7): error TS2304: Cannot find name 'parseLocalFilePreview'.
+pages/index.tsx(2447,82): error TS2345: Argument of type 'TFunction<"translation", undefined>' is not assignable to parameter of type '(key: string) => string'.
+pages/index.tsx(2494,75): error TS2339: Property 'stepId' does not exist on type 'ArtifactItem'.
+pages/index.tsx(2495,56): error TS2339: Property 'stepId' does not exist on type 'ArtifactItem'.
+pages/index.tsx(2502,58): error TS2339: Property 'stepId' does not exist on type 'ArtifactItem'.
+pages/index.tsx(3140,66): error TS2345: Argument of type 'TFunction<"translation", undefined>' is not assignable to parameter of type '(key: string) => string'.
+pages/index.tsx(3164,73): error TS2339: Property 'stepId' does not exist on type 'ArtifactItem'.
+pages/index.tsx(3165,54): error TS2339: Property 'stepId' does not exist on type 'ArtifactItem'.
+pages/index.tsx(3172,56): error TS2339: Property 'stepId' does not exist on type 'ArtifactItem'.
+pages/index.tsx(3777,39): error TS7006: Parameter 'space' implicitly has an 'any' type.
+pages/index.tsx(3783,42): error TS7006: Parameter 'space' implicitly has an 'any' type.
+pages/index.tsx(3816,37): error TS7006: Parameter 'space' implicitly has an 'any' type.
+pages/index.tsx(3989,47): error TS2345: Argument of type '[string]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+pages/index.tsx(3996,47): error TS2345: Argument of type '[string]' is not assignable to parameter of type '[key: string | string[], options: TOptionsBase & $Dictionary & { defaultValue: string; }] | [key: string | string[], defaultValue: string, options?: (TOptionsBase & $Dictionary) | undefined] | [key: ...]'.
+pages/index.tsx(698,21): error TS2339: Property 'success' does not exist on type 'AxiosResponse<any, any>'.
+utils/constants.ts(163,55): error TS7006: Parameter 'pattern' implicitly has an 'any' type.
+utils/constants.ts(205,55): error TS7006: Parameter 'pattern' implicitly has an 'any' type.
+utils/constants.ts(3,31): error TS2307: Cannot find module '@/types/models' or its corresponding type declarations.

@@ -2,7 +2,7 @@ import { apiInterceptors, delSpace, newDialogue } from '@/client/api';
 import { ISpace } from '@/types/knowledge';
 import { ClockCircleOutlined, DeleteFilled, MessageFilled, UserOutlined, WarningOutlined } from '@ant-design/icons';
 import { Badge, ConfigProvider, Modal, Popover } from 'antd';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'react-i18next';
 import GptCard from '../common/gpt-card';
@@ -94,7 +94,7 @@ export default function SpaceCard(props: IProps) {
                 text: (
                   <>
                     <ClockCircleOutlined className='mr-1' />
-                    {moment(space.gmt_modified).format('YYYY-MM-DD')}
+                    {dayjs(space.gmt_modified).format('YYYY-MM-DD')}
                   </>
                 ),
               },

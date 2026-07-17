@@ -58,12 +58,6 @@ function ConstructLayout({ children, className }: { children: React.ReactNode; c
       path: '/database',
     },
     {
-      key: 'governance',
-      name: '资源管理',
-      icon: <TeamOutlined />,
-      path: '/governance',
-    },
-    {
       key: 'knowledge',
       name: t('Knowledge_Space'),
       icon: <PartitionOutlined />,

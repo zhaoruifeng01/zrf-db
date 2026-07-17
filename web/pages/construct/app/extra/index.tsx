@@ -162,7 +162,7 @@ const ExtraAppInfo: React.FC = () => {
       <Spin spinning={loading}>
         <div
           className={classNames(
-            'flex flex-col  h-screen w-screen dark:bg-gradient-dark bg-gradient-light bg-cover bg-center',
+            'flex flex-col  h-dvh w-screen dark:bg-gradient-dark bg-gradient-light bg-cover bg-center',
             styles['extra-container'],
           )}
         >

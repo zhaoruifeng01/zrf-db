@@ -15,7 +15,7 @@ import { ChatContext } from '@/app/chat-context';
 import IconFont from '@/new-components/common/Icon';
 import BlurredCard from '@/new-components/common/blurredCard';
 import { AppListResponse } from '@/types/app';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 
 const Playground: NextPage = () => {
   const router = useRouter();
@@ -241,7 +241,7 @@ const Playground: NextPage = () => {
                 <div className='flex gap-1 items-center'>
                   <Avatar
                     src={item?.owner_avatar_url}
-                    className='bg-gradient-to-tr from-[#31afff] to-[#1677ff] cursor-pointer'
+                    className='bg-icon-gradient cursor-pointer'
                   >
                     {item.owner_name}
                   </Avatar>
@@ -254,7 +254,7 @@ const Playground: NextPage = () => {
                   <span className='text-[#878c93]'>{item.hot_value}</span>
                 </div>
               ) : (
-                <div>{moment(item?.updated_at).fromNow() + ' ' + t('update')}</div>
+                <div>{dayjs(item?.updated_at).fromNow() + ' ' + t('update')}</div>
               )}
             </div>
           }

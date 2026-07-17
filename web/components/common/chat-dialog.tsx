@@ -79,7 +79,7 @@ function ChatDialog({ title, chatMode, completionApi, chatParams, model = '' }: 
   return (
     <div
       className={classNames(
-        'fixed top-0 right-0 w-[30rem] h-screen flex flex-col bg-white dark:bg-theme-dark-container shadow-[-5px_0_40px_-4px_rgba(100,100,100,.1)] transition-transform duration-300',
+        'fixed top-0 right-0 w-[30rem] h-dvh flex flex-col bg-white dark:bg-theme-dark-container shadow-[-5px_0_40px_-4px_rgba(100,100,100,.1)] transition-transform duration-300',
         {
           'translate-x-0': open,
           'translate-x-full': !open,

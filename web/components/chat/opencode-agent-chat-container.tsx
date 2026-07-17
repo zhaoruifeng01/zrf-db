@@ -232,7 +232,7 @@ const OpenCodeAgentChatContainer: React.FC = () => {
   const isWorking = streamingTurn?.isWorking || agentState.isWorking;
 
   return (
-    <div className='flex flex-col h-screen w-full overflow-hidden'>
+    <div className='flex flex-col h-dvh w-full overflow-hidden'>
       <MuiLoading visible={loading} />
 
       <div className='flex-none'>

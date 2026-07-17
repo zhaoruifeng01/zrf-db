@@ -1,0 +1,27 @@
+packages:
+  # Main business UI (currently Next.js; migrating to Vite + React Router per ADR 0001).
+  # `packageManager: yarn@1.22.22` is intentionally left in web/package.json during the
+  # transition; pnpm can still read this workspace entry, but yarn remains the working
+  # tool for the Next.js app until the strangler migration completes.
+  - 'web'
+  # Docusaurus documentation site (independent deployment boundary)
+  - 'docs'
+  # New Vite + React Router shell (strangler target)
+  - 'web/shell'
+  # Shared frontend primitives (API client, auth, storage)
+  - 'web/shared'
+# pnpm 11 build-script policy. esbuild (Vite dep) needs its postinstall to
+# fetch the platform binary; the others are optional postinstall hints
+# (core-js banner, @antv/util optimization) and are safely skipped.
+allowBuilds:
+  esbuild: true
+  '@antv/util': false
+  core-js: false
+  core-js-pure: false
+# Force a single @types/react across the workspace. Without this, pnpm resolves
+# 18.2.14 (legacy web) and 18.3.x (shell) side-by-side, and Antd's compounded
+# components end up referencing the older copy - producing "'Card' cannot be
+# used as a JSX component" errors in the shell. See ADR 0001 §中期.
+overrides:
+  '@types/react': ^18.3.0
+  '@types/react-dom': ^18.3.0

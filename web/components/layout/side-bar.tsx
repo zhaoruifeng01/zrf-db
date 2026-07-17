@@ -23,8 +23,7 @@ import Icon, {
 } from '@ant-design/icons';
 import { Popover, Skeleton, Tooltip, message } from 'antd';
 import cls from 'classnames';
-import moment from 'moment';
-import 'moment/locale/zh-cn';
+import { dayjs } from '@/utils/date';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -138,8 +137,8 @@ function SideBar() {
   const handleChangeLang = useCallback(() => {
     const language = i18n.language === 'en' ? 'zh' : 'en';
     i18n.changeLanguage(language);
-    if (language === 'zh') moment.locale('zh-cn');
-    if (language === 'en') moment.locale('en');
+    if (language === 'zh') dayjs.locale('zh-cn');
+    if (language === 'en') dayjs.locale('en');
     localStorage.setItem(STORAGE_LANG_KEY, language);
   }, [i18n]);
 
@@ -346,8 +345,8 @@ function SideBar() {
 
   useEffect(() => {
     const language = i18n.language;
-    if (language === 'zh') moment.locale('zh-cn');
-    if (language === 'en') moment.locale('en');
+    if (language === 'zh') dayjs.locale('zh-cn');
+    if (language === 'en') dayjs.locale('en');
   }, [i18n.language]);
 
   useEffect(() => {
@@ -361,7 +360,7 @@ function SideBar() {
   // ============ COLLAPSED SIDEBAR ============
   if (!isMenuExpand) {
     return (
-      <div className='flex flex-col justify-between pt-4 h-screen bg-bar dark:bg-[#232734] animate-fade animate-duration-300'>
+      <div className='flex flex-col justify-between pt-4 h-dvh bg-bar dark:bg-[#232734] animate-fade animate-duration-300'>
         <div>
           <div className='flex flex-col items-center pb-2'>
             <Link href='/' className='flex justify-center items-center pb-2'>
@@ -430,7 +429,7 @@ function SideBar() {
 
   // ============ EXPANDED SIDEBAR ============
   return (
-    <div className='flex flex-col h-screen w-[240px] min-w-[240px] px-4 pt-4 bg-bar dark:bg-[#232734] animate-fade animate-duration-300'>
+    <div className='flex flex-col h-dvh w-[240px] min-w-[240px] px-4 pt-4 bg-bar dark:bg-[#232734] animate-fade animate-duration-300'>
       {/* LOGO + Collapse Toggle */}
       <div className='flex items-center justify-between p-2 pb-4'>
         <Link href='/' className='flex items-center'>
@@ -448,7 +447,7 @@ function SideBar() {
 
       {/* New Task Button */}
       <Link href='/'>
-        <div className='flex items-center justify-center gap-2 px-4 py-2.5 mb-4 bg-black dark:bg-white dark:text-black text-white rounded-xl text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer'>
+        <div className='flex items-center justify-center gap-2 px-4 py-2.5 mb-4 bg-[#0a0e1a] dark:bg-white dark:text-black text-white rounded-xl text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer'>
           <PlusOutlined className='text-xs' />
           <span>{t('new_task')}</span>
         </div>

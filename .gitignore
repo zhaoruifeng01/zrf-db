@@ -152,6 +152,7 @@ logswebserver.log.*
 .history/*
 .plugin_env
 /pilot/meta_data/alembic/versions/*
+!/pilot/meta_data/alembic/versions/*_governance_*.py
 /pilot/meta_data/*.db
 /pilot/benchmark_meta_data/*.db
 /pilot/benchmark_meta_data/result/*
@@ -207,5 +208,24 @@ test_docs
 .qoder/
 .qwencode/
 .sisyphus/
+.obsidian/
 /packages/dbgpt-app/src/dbgpt_app/static/*
 _upstream/
+
+# Architecture review notes (Claude-generated scratch docs, not source of truth)
+/架构评审-*.md
+
+# Frontend workspace (ADR 0001)
+/node_modules/
+/web/shell/node_modules/
+/web/shell/dist/
+/web/shell/build/
+/web/shell/.react-router/
+/web/shared/node_modules/
+/web/shared/dist/
+/docs/.docusaurus/
+/docs/build/
+
+# Typecheck baseline working file (baseline itself IS committed)
+/web/.typecheck-current.txt
+

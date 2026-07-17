@@ -184,7 +184,7 @@ const ChatContainer = () => {
   );
 
   return (
-    <div className='flex flex-col h-screen w-full overflow-y-auto'>
+    <div className='flex flex-col h-dvh w-full overflow-y-auto'>
       <MuiLoading visible={loading} />
 
       <div className='flex-none'>

@@ -6,7 +6,7 @@ import { IModelData } from '@/types/model';
 import { getModelIcon } from '@/utils/constants';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Modal, Tag, message } from 'antd';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -147,7 +147,7 @@ function Models() {
                   </div>
                   <div className='flex overflow-hidden'>
                     <p className='w-28 text-gray-500 mr-2'>Last Heart Beat:</p>
-                    <p className='flex-1 text-ellipsis'>{moment(item.last_heartbeat).format('YYYY-MM-DD HH:mm:ss')}</p>
+                    <p className='flex-1 text-ellipsis'>{dayjs(item.last_heartbeat).format('YYYY-MM-DD HH:mm:ss')}</p>
                   </div>
                 </div>
               }

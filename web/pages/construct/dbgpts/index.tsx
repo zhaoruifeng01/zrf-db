@@ -13,7 +13,7 @@ import { ClearOutlined, DownloadOutlined, SearchOutlined, SyncOutlined } from '@
 import { useRequest } from 'ahooks';
 import { Button, Input, Segmented, SegmentedProps, Spin, Tag, message } from 'antd';
 import cls from 'classnames';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 function Agent() {
@@ -166,7 +166,7 @@ function Agent() {
   return (
     <ConstructLayout>
       <Spin spinning={loading}>
-        <div className='h-screen w-full p-4 md:p-6 overflow-y-auto'>
+        <div className='h-dvh w-full p-4 md:p-6 overflow-y-auto'>
           <div className='flex justify-between items-center mb-6'>
             <div className='flex items-center gap-4'>
               <Segmented
@@ -243,7 +243,7 @@ function Agent() {
                   <div className='flex gap-2'>
                     {agent.author && <span>{agent.author}</span>}
                     {agent.author && <span>•</span>}
-                    {agent?.gmt_created && <span>{moment(agent?.gmt_created).fromNow() + ' ' + t('update')}</span>}
+                    {agent?.gmt_created && <span>{dayjs(agent?.gmt_created).fromNow() + ' ' + t('update')}</span>}
                   </div>
                 }
                 RightTop={agent.type && <Tag>{agent.type}</Tag>}

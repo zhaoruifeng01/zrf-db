@@ -1,0 +1,32 @@
+# Python
+.venv/
+**/__pycache__/
+*.py[cod]
+
+# Node
+**/node_modules/
+**/dist/
+**/build/
+**/.next/
+**/.vite/
+**/out/
+**/tsconfig.tsbuildinfo
+
+# Lockfiles (do not format)
+**/yarn.lock
+**/package-lock.json
+**/pnpm-lock.yaml
+
+# Generated
+**/static/governance/
+**/static/shell/
+web/genAntdCss.ts
+
+# Docs build
+docs/build/
+docs/.docusaurus/
+
+# Logs
+*.log
+logs/
+cache/

@@ -1,13 +1,18 @@
 import { apiInterceptors, getUsableModels, queryAdminList } from '@/client/api';
+import { useAdminStore } from '@/app/stores/admin-store';
+import { useChatStore } from '@/app/stores/chat-store';
+import { useModelsStore } from '@/app/stores/models-store';
+import { usePreferencesStore } from '@/app/stores/preferences-store';
+import { useSceneStore } from '@/app/stores/scene-store';
+import { useUIStore } from '@/app/stores/ui-store';
+import type { ThemeMode } from '@/app/stores/types';
 import { ChatHistoryResponse, DialogueListResponse, IChatDialogueSchema } from '@/types/chat';
 import { UserInfoResponse } from '@/types/userinfo';
 import { getUserId } from '@/utils';
 import { STORAGE_THEME_KEY } from '@/utils/constants/index';
 import { useRequest } from 'ahooks';
 import { useSearchParams } from 'next/navigation';
-import { createContext, useEffect, useState } from 'react';
-
-type ThemeMode = 'dark' | 'light';
+import { createContext, useEffect } from 'react';
 
 interface IChatContext {
   mode: ThemeMode;
@@ -31,7 +36,6 @@ interface IChatContext {
   setHistory: (val: ChatHistoryResponse) => void;
   docId?: number;
   setDocId: (docId: number) => void;
-  // 当前对话信息
   currentDialogInfo: {
     chat_scene: string;
     app_code: string;
@@ -80,29 +84,64 @@ const ChatContextProvider = ({ children }: { children: React.ReactElement }) => 
   const chatId = searchParams?.get('id') ?? '';
   const scene = searchParams?.get('scene') ?? '';
   const db_param = searchParams?.get('db_param') ?? '';
-  const [isContract, setIsContract] = useState(false);
-  const [model, setModel] = useState<string>('');
-  const [isMenuExpand, setIsMenuExpand] = useState<boolean>(scene !== 'chat_dashboard');
-  const [dbParam, setDbParam] = useState<string>(db_param);
-  const [agent, setAgent] = useState<string>('');
-  const [history, setHistory] = useState<ChatHistoryResponse>([]);
-  const [docId, setDocId] = useState<number>();
-  const [mode, setMode] = useState<ThemeMode>('light');
-  // 管理员列表
-  const [adminList, setAdminList] = useState<UserInfoResponse[]>([]);
 
-  const [currentDialogInfo, setCurrentDialogInfo] = useState({
-    chat_scene: '',
-    app_code: '',
-  });
+  // --- Store hooks (subscribe to individual slices) ---
+  const mode = usePreferencesStore(s => s.mode);
+  const setMode = usePreferencesStore(s => s.setMode);
 
-  // 获取model
-  const { data: modelList = [] } = useRequest(async () => {
+  const model = useModelsStore(s => s.model);
+  const modelList = useModelsStore(s => s.modelList);
+  const setModel = useModelsStore(s => s.setModel);
+  const setModelList = useModelsStore(s => s.setModelList);
+
+  const isContract = useUIStore(s => s.isContract);
+  const isMenuExpand = useUIStore(s => s.isMenuExpand);
+  const setIsContract = useUIStore(s => s.setIsContract);
+  const setIsMenuExpand = useUIStore(s => s.setIsMenuExpand);
+
+  const dbParam = useSceneStore(s => s.dbParam);
+  const agent = useSceneStore(s => s.agent);
+  const docId = useSceneStore(s => s.docId);
+  const currentDialogInfo = useSceneStore(s => s.currentDialogInfo);
+  const setScene = useSceneStore(s => s.setScene);
+  const setChatId = useSceneStore(s => s.setChatId);
+  const setDbParam = useSceneStore(s => s.setDbParam);
+  const setAgent = useSceneStore(s => s.setAgent);
+  const setDocId = useSceneStore(s => s.setDocId);
+  const setCurrentDialogInfo = useSceneStore(s => s.setCurrentDialogInfo);
+
+  const history = useChatStore(s => s.history);
+  const setHistory = useChatStore(s => s.setHistory);
+
+  const adminList = useAdminStore(s => s.adminList);
+  const setAdminList = useAdminStore(s => s.setAdminList);
+
+  // --- Sync URL search params to scene store ---
+  useEffect(() => {
+    setScene(scene);
+    setChatId(chatId);
+    setDbParam(db_param || db_param);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scene, chatId, db_param]);
+
+  // --- Fetch model list (same useRequest as original) ---
+  const { data: fetchedModelList = [] } = useRequest(async () => {
     const [, res] = await apiInterceptors(getUsableModels());
     return res ?? [];
   });
 
-  // 获取管理员列表
+  useEffect(() => {
+    setModelList(fetchedModelList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchedModelList]);
+
+  // --- Auto-select first model when list loads (same as original) ---
+  useEffect(() => {
+    setModel(fetchedModelList[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchedModelList, fetchedModelList?.length]);
+
+  // --- Fetch admin list (same useRequest as original) ---
   const { run: queryAdminListRun } = useRequest(
     async () => {
       const [, res] = await apiInterceptors(queryAdminList({ role: 'admin' }));
@@ -123,8 +162,14 @@ const ChatContextProvider = ({ children }: { children: React.ReactElement }) => 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryAdminListRun, getUserId()]);
 
+  // --- Initialize theme from localStorage (same as original) ---
   useEffect(() => {
     setMode(getDefaultTheme());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // --- Initialize currentDialogInfo from localStorage (same as original) ---
+  useEffect(() => {
     try {
       const dialogInfo = JSON.parse(localStorage.getItem('cur_dialog_info') || '');
       setCurrentDialogInfo(dialogInfo);
@@ -134,13 +179,15 @@ const ChatContextProvider = ({ children }: { children: React.ReactElement }) => 
         app_code: '',
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    setModel(modelList[0]);
-  }, [modelList, modelList?.length]);
-
-  const contextValue = {
+  // --- Build context value (same shape as original) ---
+  // Note: dialogueList, currentDialogue, and refreshDialogList are intentionally
+  // NOT provided (same as the original). They remain as their default values
+  // (undefined / no-op) and are instead provided by ChatContentContext in
+  // pages/chat/index.tsx.
+  const contextValue: IChatContext = {
     isContract,
     isMenuExpand,
     scene,
@@ -164,6 +211,7 @@ const ChatContextProvider = ({ children }: { children: React.ReactElement }) => 
     setCurrentDialogInfo,
     adminList,
   };
+
   return <ChatContext.Provider value={contextValue}>{children}</ChatContext.Provider>;
 };
 

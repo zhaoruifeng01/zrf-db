@@ -218,7 +218,7 @@ function Connectors() {
 
   return (
     <ConstructLayout>
-      <div className='relative h-screen w-full overflow-y-auto bg-gradient-to-b from-[#f7f8fc] via-white to-[#f7f8fc] dark:from-[#1c2333] dark:via-[#1c2333] dark:to-[#161b29]'>
+      <div className='relative h-dvh w-full overflow-y-auto bg-gradient-to-b from-[#f7f8fc] via-white to-[#f7f8fc] dark:from-[#1c2333] dark:via-[#1c2333] dark:to-[#161b29]'>
         <div className='max-w-[1400px] mx-auto p-4 md:p-6 lg:p-8'>
           {/* ───────────── HERO HEADER ───────────── */}
           <div className='mb-7'>

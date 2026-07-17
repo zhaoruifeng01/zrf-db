@@ -592,7 +592,7 @@ const SharePage: NextPage = () => {
 
   if (loading) {
     return (
-      <div className='flex items-center justify-center h-screen bg-white dark:bg-[#111217]'>
+      <div className='flex items-center justify-center h-dvh bg-white dark:bg-[#111217]'>
         <div className='text-center space-y-3'>
           <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto' />
           <p className='text-gray-400'>加载中...</p>
@@ -603,7 +603,7 @@ const SharePage: NextPage = () => {
 
   if (fetchError || rounds.length === 0) {
     return (
-      <div className='flex items-center justify-center h-screen bg-white dark:bg-[#111217]'>
+      <div className='flex items-center justify-center h-dvh bg-white dark:bg-[#111217]'>
         <div className='text-center space-y-3'>
           <p className='text-2xl font-semibold text-gray-700 dark:text-gray-200'>分享链接无效或已过期</p>
           <p className='text-gray-400'>{fetchError || '没有可回放的对话内容'}</p>
@@ -622,7 +622,7 @@ const SharePage: NextPage = () => {
         </title>
       </Head>
 
-      <div className='flex flex-col h-screen bg-white dark:bg-[#111217] overflow-hidden'>
+      <div className='flex flex-col h-dvh bg-white dark:bg-[#111217] overflow-hidden'>
         {/* ---------------------------------------------------------------- */}
         {/* Top bar */}
         {/* ---------------------------------------------------------------- */}

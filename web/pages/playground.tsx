@@ -194,7 +194,7 @@ const PlaygroundPage: React.FC = () => {
   }, []);
 
   return (
-    <div className='h-screen'>
+    <div className='h-dvh'>
       <ChatPage
         turns={turns}
         isLoading={isGenerating}

@@ -26,7 +26,7 @@ import {
 import { useRequest } from 'ahooks';
 import { Button, Card, Divider, Dropdown, Empty, Form, Input, Modal, Space, Spin, Tag, Tooltip, message } from 'antd';
 import cls from 'classnames';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -381,7 +381,7 @@ export default function DocPanel(props: IProps) {
                             <p className='mt-2 font-semibold '>{t('Size')}:</p>
                             <p>{document.chunk_size} chunks</p>
                             <p className='mt-2 font-semibold '>{t('Last_Sync')}:</p>
-                            <p>{moment(document.last_sync).format('YYYY-MM-DD HH:MM:SS')}</p>
+                            <p>{dayjs(document.last_sync).format('YYYY-MM-DD HH:mm:ss')}</p>
                             <p className='mt-2 mb-2'>{renderResultTag(document.status, document.result)}</p>
                           </Card>
                         );

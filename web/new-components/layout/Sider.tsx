@@ -4,7 +4,7 @@ import UserBar from '@/new-components/layout/UserBar';
 import { STORAGE_LANG_KEY, STORAGE_THEME_KEY } from '@/utils/constants/index';
 import Icon, { GlobalOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Layout, Popover } from 'antd';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { ReactNode, useCallback, useContext, useMemo, useState } from 'react';
@@ -35,10 +35,10 @@ const Sider: React.FC = () => {
     const language = i18n.language === 'en' ? 'zh' : 'en';
     i18n.changeLanguage(language);
     if (language === 'zh') {
-      moment.locale('zh-cn');
+      dayjs.locale('zh-cn');
     }
     if (language === 'en') {
-      moment.locale('en');
+      dayjs.locale('en');
     }
     localStorage.setItem(STORAGE_LANG_KEY, language);
   }, [i18n]);

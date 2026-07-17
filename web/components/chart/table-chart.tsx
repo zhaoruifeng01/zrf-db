@@ -78,7 +78,7 @@ export default function TableChart({ chart, columnNameMap, renderCell }: TableCh
       title: formatCol(col),
       dataIndex: col,
       key: col,
-      render: (value: any, _record: any) => {
+      render: (value: any, record: any) => {
         return renderCell ? renderCell(value, record, col) : formatCellValue(value);
       },
     }));
@@ -95,7 +95,7 @@ export default function TableChart({ chart, columnNameMap, renderCell }: TableCh
             columns={tableColumns}
             pagination={false}
             size='small'
-            rowKey={(record, index) => index?.toString() || '0'}
+            rowKey={(_record, index) => index?.toString() || '0'}
           />
         </div>
       </div>

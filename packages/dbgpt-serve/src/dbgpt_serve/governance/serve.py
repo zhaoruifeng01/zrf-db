@@ -56,6 +56,7 @@ class GovernanceServe(BaseServe):
 
     def on_init(self):
         from . import models as _  # noqa: F401
+        from .metadata import models as _metadata_models  # noqa: F401
 
     def _ensure_governance_tables(self, db_manager: DatabaseManager) -> None:
         required_tables = (
@@ -66,6 +67,12 @@ class GovernanceServe(BaseServe):
             "governance_access_request",
             "governance_api_key",
             "governance_audit_log",
+            "governance_metadata_dataset",
+            "governance_metadata_table",
+            "governance_metadata_column",
+            "governance_metadata_metric",
+            "governance_metadata_relationship",
+            "governance_metadata_scan",
         )
         inspector = inspect(db_manager.engine)
         missing_tables = [

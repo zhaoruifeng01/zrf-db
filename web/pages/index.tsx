@@ -2390,7 +2390,7 @@ const Playground: NextPage = () => {
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: '#000000',
+          colorPrimary: '#0a0e1a',
         },
       }}
     >

@@ -13,7 +13,7 @@ import { ClearOutlined, DownloadOutlined, SyncOutlined } from '@ant-design/icons
 import { useRequest } from 'ahooks';
 import { Button, Segmented, SegmentedProps, Spin, Tag, message } from 'antd';
 import cls from 'classnames';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 // import MyPlugins from '@/components/agent/my-plugins';
@@ -160,7 +160,7 @@ function Agent() {
                 <div className='flex gap-2'>
                   {agent.author && <span>{agent.author}</span>}
                   {agent.author && <span>•</span>}
-                  {agent?.gmt_created && <span>{moment(agent?.gmt_created).fromNow() + ' ' + t('update')}</span>}
+                  {agent?.gmt_created && <span>{dayjs(agent?.gmt_created).fromNow() + ' ' + t('update')}</span>}
                 </div>
               }
               RightBottom={

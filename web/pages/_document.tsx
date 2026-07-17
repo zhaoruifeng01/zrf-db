@@ -41,6 +41,13 @@ class MyDocument extends Document {
           <meta name='description' content='Revolutionizing Database Interactions with Private LLM Technology' />
           <meta property='og:description' content='eosphoros-ai' />
           <meta property='og:title' content='DB-GPT' />
+
+          <link rel='preconnect' href='https://fonts.googleapis.com' />
+          <link rel='preconnect' href='https://fonts.gstatic.com' crossOrigin='anonymous' />
+          <link
+            href='https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap'
+            rel='stylesheet'
+          />
         </Head>
         <body>
           <Main />

@@ -16,7 +16,7 @@ import { BulbOutlined, DingdingOutlined, PlusOutlined, SearchOutlined, WarningOu
 import { useDebounceFn, useRequest } from 'ahooks';
 import { App, Button, Input, Modal, Pagination, Popover, Segmented, SegmentedProps, Select, Spin, Tag } from 'antd';
 import copy from 'copy-to-clipboard';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import { useRouter } from 'next/router';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -288,7 +288,7 @@ export default function AppContent() {
   return (
     <ConstructLayout>
       <Spin spinning={spinning}>
-        <div className='h-screen w-full p-4 md:p-6 overflow-y-auto'>
+        <div className='h-dvh w-full p-4 md:p-6 overflow-y-auto'>
           <div className='flex justify-between items-center mb-6'>
             <div className='flex items-center gap-4'>
               <Segmented
@@ -404,7 +404,7 @@ export default function AppContent() {
                     <div className='flex gap-2'>
                       <span>{item.owner_name}</span>
                       <span>•</span>
-                      {item?.updated_at && <span>{moment(item?.updated_at).fromNow() + ' ' + t('update')}</span>}
+                      {item?.updated_at && <span>{dayjs(item?.updated_at).fromNow() + ' ' + t('update')}</span>}
                     </div>
                   }
                   RightBottom={

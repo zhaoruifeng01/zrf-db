@@ -12,7 +12,7 @@ import { PlusOutlined, ReadOutlined, SearchOutlined, WarningOutlined } from '@an
 import { Button, Input, Modal, Spin, Steps, Tag } from 'antd';
 import classNames from 'classnames';
 import { debounce } from 'lodash';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -222,7 +222,7 @@ const Knowledge = () => {
                   <div className='flex gap-2'>
                     <span>{space.owner}</span>
                     <span>•</span>
-                    {space?.gmt_modified && <span>{moment(space?.gmt_modified).fromNow() + ' ' + t('update')}</span>}
+                    {space?.gmt_modified && <span>{dayjs(space?.gmt_modified).fromNow() + ' ' + t('update')}</span>}
                   </div>
                 }
                 RightBottom={

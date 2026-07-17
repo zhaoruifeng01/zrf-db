@@ -372,7 +372,7 @@ const Chat: React.FC = () => {
         </Content>
       ) : (
         <Spin spinning={historyLoading} className='w-full h-full m-auto'>
-          <Content className='flex flex-col h-screen'>
+          <Content className='flex flex-col h-dvh'>
             <ChatContentContainer ref={scrollRef} className='flex-1' />
             {pendingQuestion && (
               <div className='mx-auto w-full max-w-4xl px-4'>

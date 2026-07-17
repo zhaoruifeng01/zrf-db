@@ -91,7 +91,7 @@ function LayoutWrapper({ children }: { children: React.ReactNode }) {
       return <>{children}</>;
     }
     return (
-      <div className='flex w-screen h-screen overflow-hidden'>
+      <div className='flex w-screen h-dvh overflow-hidden'>
         <Head>
           <meta name='viewport' content='initial-scale=1.0, width=device-width, maximum-scale=1' />
         </Head>

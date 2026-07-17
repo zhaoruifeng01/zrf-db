@@ -11,7 +11,19 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Josefin Sans"', ...defaultTheme.fontFamily.sans],
+        sans: ['Geist', ...defaultTheme.fontFamily.sans],
+        mono: ['"Geist Mono"', ...defaultTheme.fontFamily.mono],
+      },
+      // Dynamic viewport height (avoid iOS Safari URL bar layout jump)
+      // Tailwind <3.4 lacks these; add explicitly so h-dvh / min-h-dvh / max-h-dvh work.
+      height: {
+        dvh: '100dvh',
+      },
+      minHeight: {
+        dvh: '100dvh',
+      },
+      maxHeight: {
+        dvh: '100dvh',
       },
       colors: {
         theme: {
@@ -36,6 +48,8 @@ module.exports = {
         'gradient-light': "url('/images/bg.png')",
         'gradient-dark': 'url("/images/bg_dark.png")',
         'button-gradient': 'linear-gradient(to right, theme("colors.gradientL"), theme("colors.gradientR"))',
+        // Brand icon/avatar gradient - single source of truth (was hardcoded in 6 places)
+        'icon-gradient': 'linear-gradient(to top right, #31afff, #1677ff)',
       },
       keyframes: {
         pulse1: {

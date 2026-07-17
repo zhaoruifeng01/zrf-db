@@ -53,7 +53,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen bg-[#f5f5f5] dark:bg-[#1a1d28]'>
+    <div className='flex items-center justify-center min-h-dvh bg-[#f5f5f5] dark:bg-[#1a1d28]'>
       <div className='w-full max-w-sm p-8 bg-white dark:bg-[#232734] rounded-lg shadow-md'>
         <div className='flex flex-col items-center mb-8'>
           <Image src='/logo_zh_latest.png' alt='DB-GPT' width={180} height={40} className='mb-4' />

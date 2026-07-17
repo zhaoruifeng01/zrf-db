@@ -10,7 +10,7 @@ import { PostAgentQueryParams } from '@/types/agent';
 import { ClearOutlined, DownloadOutlined, SearchOutlined, SyncOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
 import { Button, Form, Input, Spin, Tag, message } from 'antd';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MyEmpty from '../common/MyEmpty';
@@ -172,7 +172,7 @@ function MarketPlugins() {
               <div className='flex gap-2'>
                 <span>{agent.author}</span>
                 <span>•</span>
-                {agent?.gmt_created && <span>{moment(agent?.gmt_created).fromNow() + ' ' + t('update')}</span>}
+                {agent?.gmt_created && <span>{dayjs(agent?.gmt_created).fromNow() + ' ' + t('update')}</span>}
               </div>
             }
             RightBottom={

@@ -124,6 +124,15 @@ def test_audit_sanitizes_sql_and_details(service, admin):
     assert "abc123" not in detail
 
 
+def test_rate_limit_uses_token_bucket(service, admin):
+    service.config.query_rate_limit_per_minute = 1
+
+    service.check_rate_limit(admin, 1)
+
+    with pytest.raises(HTTPException, match="rate limit"):
+        service.check_rate_limit(admin, 1)
+
+
 def service_models():
     from dbgpt_serve.governance import models
 

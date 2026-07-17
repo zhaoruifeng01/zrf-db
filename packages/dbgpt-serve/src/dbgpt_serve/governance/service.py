@@ -14,8 +14,13 @@ from dbgpt.component import SystemApp
 from dbgpt.storage.metadata import DatabaseManager
 from dbgpt_serve.datasource.manages.connect_config_db import ConnectConfigEntity
 from dbgpt_serve.datasource.manages.connector_manager import ConnectorManager
-from dbgpt_serve.governance.audit import sanitize_audit_detail, sql_audit_summary
+from dbgpt_serve.governance.audit import AuditWriter, DatabaseAuditWriter
 from dbgpt_serve.governance.config import ServeConfig
+from dbgpt_serve.governance.metadata import (
+    DatasourceMetadataRepository,
+    MetadataRepository,
+    SemanticMetadataService,
+)
 from dbgpt_serve.governance.models import (
     GovernanceAccessRequestEntity,
     GovernanceApiKeyEntity,
@@ -24,6 +29,12 @@ from dbgpt_serve.governance.models import (
     GovernanceDatasourcePolicyEntity,
     GovernanceMaskRuleEntity,
     GovernanceRoleGrantEntity,
+)
+from dbgpt_serve.governance.policy import (
+    AuthorizationResource,
+    Authorizer,
+    LegacyRoleGrantAuthorizer,
+    LocalTokenBucketRateLimiter,
 )
 from dbgpt_serve.governance.sql_guard import SqlGuard, SqlGuardConfig
 
@@ -133,14 +144,20 @@ class GovernanceService:
         self.system_app = system_app
         self.db_manager = db_manager
         self.config = config
+        self.metadata_repository: MetadataRepository = DatasourceMetadataRepository(
+            db_manager
+        )
+        self.authorizer: Authorizer = LegacyRoleGrantAuthorizer(db_manager)
+        self.audit_writer: AuditWriter = DatabaseAuditWriter(db_manager)
+        self.rate_limiter = LocalTokenBucketRateLimiter()
         self.query_service = GovernanceQueryService(self)
+        self.metadata_service = SemanticMetadataService(system_app, db_manager)
 
     def get_datasource(self, datasource_id: int) -> ConnectConfigEntity:
-        with self.db_manager.session() as session:
-            datasource = session.get(ConnectConfigEntity, datasource_id)
-            if not datasource:
-                raise HTTPException(status_code=404, detail="Datasource not found")
-            return datasource
+        datasource = self.metadata_repository.get_datasource(datasource_id)
+        if not datasource:
+            raise HTTPException(status_code=404, detail="Datasource not found")
+        return datasource
 
     def list_datasources(self, principal: Principal) -> List[Dict[str, Any]]:
         with self.db_manager.session() as session:
@@ -169,6 +186,34 @@ class GovernanceService:
                     }
                 )
             return response
+
+    def list_metadata_datasets(self, principal: Principal) -> List[Dict[str, Any]]:
+        self.require_admin(principal)
+        return self.metadata_service.list_datasets()
+
+    def list_metadata_tables(
+        self, principal: Principal, datasource_id: int
+    ) -> List[Dict[str, Any]]:
+        self.require_permission(principal, datasource_id, "*", "query")
+        return self.metadata_service.list_tables(datasource_id)
+
+    def list_metadata_columns(
+        self, principal: Principal, datasource_id: int, table_name: str
+    ) -> List[Dict[str, Any]]:
+        self.require_permission(principal, datasource_id, table_name, "query")
+        return self.metadata_service.list_columns(datasource_id, table_name)
+
+    def scan_metadata(self, principal: Principal, datasource_id: int) -> Dict[str, Any]:
+        self.require_manage(principal, datasource_id)
+        result = self.metadata_service.scan_datasource(datasource_id)
+        self.audit(principal, "metadata.scan", datasource_id, result["status"])
+        return result
+
+    def metadata_health(
+        self, principal: Principal, datasource_id: int
+    ) -> Dict[str, Any]:
+        self.require_permission(principal, datasource_id, "*", "query")
+        return self.metadata_service.health(datasource_id)
 
     def update_datasource_policy(
         self, principal: Principal, datasource_id: int, payload: Dict[str, Any]
@@ -478,37 +523,22 @@ class GovernanceService:
     def has_permission(
         self, principal: Principal, datasource_id: int, table_name: str, permission: str
     ) -> bool:
-        if principal.is_admin:
-            return True
-        with self.db_manager.session() as session:
-            grants = (
-                session.query(GovernanceRoleGrantEntity)
-                .filter(
-                    GovernanceRoleGrantEntity.datasource_id == datasource_id,
-                    GovernanceRoleGrantEntity.role_code.in_(list(principal.role_codes)),
-                    GovernanceRoleGrantEntity.permission.in_([permission, "manage"]),
-                )
-                .all()
-            )
-            return any(
-                fnmatch.fnmatch(table_name.lower(), grant.table_pattern.lower())
-                for grant in grants
-            )
+        decision = self.authorizer.authorize(
+            principal,
+            AuthorizationResource(
+                datasource_id=datasource_id,
+                table_name=table_name,
+                action=permission,
+            ),
+        )
+        return decision.allowed
 
     def check_rate_limit(self, principal: Principal, datasource_id: int) -> None:
-        since = datetime.now() - timedelta(minutes=1)
-        with self.db_manager.session() as session:
-            count = (
-                session.query(GovernanceAuditLogEntity)
-                .filter(
-                    GovernanceAuditLogEntity.user_id == principal.user_id,
-                    GovernanceAuditLogEntity.datasource_id == datasource_id,
-                    GovernanceAuditLogEntity.action == "query",
-                    GovernanceAuditLogEntity.gmt_created >= since,
-                )
-                .count()
-            )
-        if count >= self.config.query_rate_limit_per_minute:
+        allowed = self.rate_limiter.allow(
+            (principal.user_id, datasource_id),
+            self.config.query_rate_limit_per_minute,
+        )
+        if not allowed:
             raise HTTPException(
                 status_code=429, detail="Governance query rate limit exceeded"
             )
@@ -560,8 +590,7 @@ class GovernanceService:
             if rule["role_code"] and rule["role_code"] not in principal.role_codes:
                 continue
             if tables and not any(
-                fnmatch.fnmatch(table.lower(), rule["table_name"].lower())
-                for table in tables
+                self._matches(table, rule["table_name"]) for table in tables
             ):
                 continue
             for row in rows:
@@ -587,6 +616,10 @@ class GovernanceService:
             return "*" * len(text)
         return f"{text[:1]}***{text[-1:]}"
 
+    @staticmethod
+    def _matches(value: str, pattern: str) -> bool:
+        return fnmatch.fnmatch(value.lower(), pattern.lower())
+
     def audit(
         self,
         principal: Principal,
@@ -597,20 +630,15 @@ class GovernanceService:
         detail: Optional[str] = None,
         resource_key: Optional[str] = None,
     ) -> None:
-        with self.db_manager.session() as session:
-            session.add(
-                GovernanceAuditLogEntity(
-                    user_id=principal.user_id,
-                    username=principal.username,
-                    action=action,
-                    datasource_id=datasource_id,
-                    resource_key=resource_key,
-                    sql_text=sql_audit_summary(sql_text),
-                    status=status,
-                    detail=sanitize_audit_detail(detail),
-                )
-            )
-            session.commit()
+        self.audit_writer.write(
+            principal,
+            action,
+            datasource_id,
+            status,
+            sql_text=sql_text,
+            detail=detail,
+            resource_key=resource_key,
+        )
 
     @staticmethod
     def _policy_dict(

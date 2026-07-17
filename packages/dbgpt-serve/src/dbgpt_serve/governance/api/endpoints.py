@@ -118,6 +118,56 @@ def metadata(
     return Result.succ(service.query_service.metadata(principal, datasource_id))
 
 
+@router.get("/metadata/datasets", response_model=Result[list])
+def metadata_datasets(
+    principal: Principal = Depends(get_principal),
+    service: GovernanceService = Depends(get_service),
+):
+    return Result.succ(service.list_metadata_datasets(principal))
+
+
+@router.get("/metadata/datasources/{datasource_id}/tables", response_model=Result[list])
+def metadata_tables(
+    datasource_id: int,
+    principal: Principal = Depends(get_principal),
+    service: GovernanceService = Depends(get_service),
+):
+    return Result.succ(service.list_metadata_tables(principal, datasource_id))
+
+
+@router.get(
+    "/metadata/datasources/{datasource_id}/tables/{table_name}/columns",
+    response_model=Result[list],
+)
+def metadata_columns(
+    datasource_id: int,
+    table_name: str,
+    principal: Principal = Depends(get_principal),
+    service: GovernanceService = Depends(get_service),
+):
+    return Result.succ(
+        service.list_metadata_columns(principal, datasource_id, table_name)
+    )
+
+
+@router.post("/metadata/datasources/{datasource_id}/scan", response_model=Result[dict])
+def scan_metadata(
+    datasource_id: int,
+    principal: Principal = Depends(get_principal),
+    service: GovernanceService = Depends(get_service),
+):
+    return Result.succ(service.scan_metadata(principal, datasource_id))
+
+
+@router.get("/metadata/datasources/{datasource_id}/health", response_model=Result[dict])
+def metadata_health(
+    datasource_id: int,
+    principal: Principal = Depends(get_principal),
+    service: GovernanceService = Depends(get_service),
+):
+    return Result.succ(service.metadata_health(principal, datasource_id))
+
+
 @router.post("/query", response_model=Result[dict])
 def query(
     request: QueryRequest,

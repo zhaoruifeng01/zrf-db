@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./build",
+    "jsx": "react-jsx",
+    "types": ["@react-router/node", "vite/client"],
+    "rootDirs": [".", "./.react-router/types"],
+    "paths": {
+      "~/*": ["./app/*"],
+      "@dbgpt/shared": ["../shared/src/index.ts"],
+      "@dbgpt/shared/*": ["../shared/src/*"],
+      "@/design-tokens": ["../design-tokens/index.ts"],
+      "@/locales/*": ["../locales/*"],
+      "@/*": ["../*"],
+      "next/navigation": ["./app/lib/next-compat/navigation.ts"],
+      "next/router": ["./app/lib/next-compat/router.ts"],
+      "next/image": ["./app/lib/next-compat/image.tsx"],
+      "next/dynamic": ["./app/lib/next-compat/dynamic.tsx"]
+    }
+  },
+  "include": ["app/**/*.ts", "app/**/*.tsx", ".react-router/types/**/*.ts", "vite.config.ts", "react-router.config.ts"],
+  "exclude": ["node_modules", "build"]
+}

@@ -39,11 +39,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install dependencies
         run: |
           yarn install
+
+      - name: Typecheck (baseline-gated)
+        # Uses web/scripts/typecheck-check.sh. Fails only on NEW errors not in
+        # web/.typecheck-baseline.txt. See adr/0001-unify-frontend-stack.md.
+        run: |
+          yarn typecheck
 
       - name: Build web application
         run: |

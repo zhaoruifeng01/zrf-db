@@ -8,7 +8,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
 import { Button, Checkbox, Form, Input, Modal, Pagination, Popconfirm, Spin, Tag, message } from 'antd';
 import { t } from 'i18next';
-import moment from 'moment';
+import { dayjs } from '@/utils/date';
 import { useRouter } from 'next/router';
 import qs from 'querystring';
 import { useContext, useRef, useState } from 'react';
@@ -150,7 +150,7 @@ function Flow() {
   return (
     <ConstructLayout>
       <Spin spinning={loading}>
-        <div className='relative h-screen w-full p-4 md:p-6 overflow-y-auto' ref={scrollRef}>
+        <div className='relative h-dvh w-full p-4 md:p-6 overflow-y-auto' ref={scrollRef}>
           <div className='flex justify-between items-center mb-6'>
             <div className='flex items-center gap-4'>
               {/* <Input
@@ -234,7 +234,7 @@ function Flow() {
                   <div key={i18n.language + 'flow'} className='flex gap-2'>
                     <span>{flow?.nick_name}</span>
                     <span>•</span>
-                    {flow?.gmt_modified && <span>{moment(flow?.gmt_modified).fromNow() + ' ' + t('update')}</span>}
+                    {flow?.gmt_modified && <span>{dayjs(flow?.gmt_modified).fromNow() + ' ' + t('update')}</span>}
                   </div>
                 }
                 RightBottom={
