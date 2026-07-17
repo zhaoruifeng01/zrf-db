@@ -1,138 +1,111 @@
-import { apiInterceptors, getModelList, startModel, stopModel } from '@/client/api';
+/**
+ * Models page - shell-native implementation.
+ *
+ * Replaces web/pages/construct/models/index.tsx. Server state lives in
+ * TanStack Query (useModels/useStartModel/useStopModel) instead of useState +
+ * apiInterceptors. The legacy file is removed once this page passes smoke
+ * testing per ADR 0002 §阶段 3.
+ */
+
 import ModelForm from '@/components/model/model-form';
 import BlurredCard, { InnerDropdown } from '@/new-components/common/blurredCard';
-import ConstructLayout from '@/new-components/layout/Construct';
 import { IModelData } from '@/types/model';
 import { getModelIcon } from '@/utils/constants';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Modal, Tag, message } from 'antd';
+import { App, Button, Modal, Tag } from 'antd';
 import { dayjs } from '@/utils/date';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-function Models() {
-  const { t } = useTranslation();
-  const [models, setModels] = useState<Array<IModelData>>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loading, setLoading] = useState<boolean>(false);
+import ConstructLayout from '~/components/construct/ConstructLayout';
+import { useModels, useStartModel, useStopModel } from '~/features/construct-models/queries';
 
-  async function getModels() {
-    const [, res] = await apiInterceptors(getModelList());
-    setModels(res ?? []);
-  }
+export default function ModelsPage() {
+  const { t } = useTranslation();
+  const { message, modal } = App.useApp();
+  const { data: models } = useModels();
+  const startMutation = useStartModel();
+  const stopMutation = useStopModel();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [busyModel, setBusyModel] = useState<string | null>(null);
+
+  const isBusy = (info: IModelData) => busyModel === info.model_name || startMutation.isPending || stopMutation.isPending;
 
   async function startTheModel(info: IModelData) {
-    if (loading) return;
-    const content = t(`confirm_start_model`) + info.model_name;
-
-    showConfirm(t('start_model'), content, async () => {
-      setLoading(true);
-      const [, , res] = await apiInterceptors(
-        startModel({
-          host: info.host,
-          port: info.port,
-          model: info.model_name,
-          worker_type: info.worker_type,
-          delete_after: false,
-          params: {},
-        }),
-      );
-      setLoading(false);
-      if (res?.success) {
-        message.success(t('start_model_success'));
-        await getModels();
-      }
-    });
-  }
-
-  async function stopTheModel(info: IModelData, delete_after = false) {
-    if (loading) return;
-
-    const action = delete_after ? 'stop_and_delete' : 'stop';
-    const content = t(`confirm_${action}_model`) + info.model_name;
-    showConfirm(t(`${action}_model`), content, async () => {
-      setLoading(true);
-      const [, , res] = await apiInterceptors(
-        stopModel({
-          host: info.host,
-          port: info.port,
-          model: info.model_name,
-          worker_type: info.worker_type,
-          delete_after: delete_after,
-          params: {},
-        }),
-      );
-      setLoading(false);
-      if (res?.success === true) {
-        message.success(t(`${action}_model_success`));
-        await getModels();
-      }
-    });
-  }
-
-  const showConfirm = (title: string, content: string, onOk: () => Promise<void>) => {
-    Modal.confirm({
-      title,
-      content,
+    if (isBusy(info)) return;
+    modal.confirm({
+      title: t('start_model'),
+      content: t('confirm_start_model') + info.model_name,
+      okButtonProps: { className: 'bg-button-gradient' },
       onOk: async () => {
-        await onOk();
-      },
-      okButtonProps: {
-        className: 'bg-button-gradient',
+        setBusyModel(info.model_name);
+        try {
+          const res = await startMutation.mutateAsync({
+            host: info.host,
+            port: info.port,
+            model: info.model_name,
+            worker_type: info.worker_type,
+            delete_after: false,
+            params: {},
+          });
+          if (res === true) {
+            message.success(t('start_model_success'));
+          }
+        } finally {
+          setBusyModel(null);
+        }
       },
     });
-  };
+  }
 
-  useEffect(() => {
-    getModels();
-  }, []);
-
-  // TODO: unuesed function
-  // const onSearch = useDebounceFn(
-  //   async (e: any) => {
-  //     const v = e.target.value;
-  //     await modelSearch({ model_name: v });
-  //   },
-  //   { wait: 500 },
-  // ).run;
-
-  const returnLogo = (name: string) => {
-    return getModelIcon(name);
-  };
+  async function stopTheModel(info: IModelData, deleteAfter = false) {
+    if (isBusy(info)) return;
+    const action = deleteAfter ? 'stop_and_delete' : 'stop';
+    modal.confirm({
+      title: t(`${action}_model`),
+      content: t(`confirm_${action}_model`) + info.model_name,
+      okButtonProps: { className: 'bg-button-gradient' },
+      onOk: async () => {
+        setBusyModel(info.model_name);
+        try {
+          const res = await stopMutation.mutateAsync({
+            host: info.host,
+            port: info.port,
+            model: info.model_name,
+            worker_type: info.worker_type,
+            delete_after: deleteAfter,
+            params: {},
+          });
+          if (res === true) {
+            message.success(t(`${action}_model_success`));
+          }
+        } finally {
+          setBusyModel(null);
+        }
+      },
+    });
+  }
 
   return (
     <ConstructLayout>
       <div className='px-6 overflow-y-auto'>
         <div className='flex justify-between items-center mb-6'>
-          <div className='flex items-center gap-4'>
-            {/* <Input
-              variant="filled"
-              prefix={<SearchOutlined />}
-              placeholder={t('please_enter_the_keywords')}
-              onChange={onSearch}
-              onPressEnter={onSearch}
-              allowClear
-              className="w-[230px] h-[40px] border-1 border-white backdrop-filter backdrop-blur-lg bg-white bg-opacity-30 dark:border-[#6f7f95] dark:bg-[#6f7f95] dark:bg-opacity-60"
-            /> */}
-          </div>
-
+          <div className='flex items-center gap-4' />
           <div className='flex items-center gap-4'>
             <Button
               className='border-none text-white bg-button-gradient'
               icon={<PlusOutlined />}
-              onClick={() => {
-                setIsModalOpen(true);
-              }}
+              onClick={() => setIsModalOpen(true)}
             >
               {t('create_model')}
             </Button>
           </div>
         </div>
 
-        <div className='flex flex-wrap mx-[-8px] '>
-          {models.map(item => (
+        <div className='flex flex-wrap mx-[-8px]'>
+          {(models ?? []).map(item => (
             <BlurredCard
-              logo={returnLogo(item.model_name)}
+              logo={getModelIcon(item.model_name)}
               description={
                 <div className='flex flex-col gap-1 relative text-xs bottom-4'>
                   <div className='flex overflow-hidden'>
@@ -199,24 +172,12 @@ function Models() {
           width={800}
           open={isModalOpen}
           title={t('create_model')}
-          onCancel={() => {
-            setIsModalOpen(false);
-          }}
+          onCancel={() => setIsModalOpen(false)}
           footer={null}
         >
-          <ModelForm
-            onCancel={() => {
-              setIsModalOpen(false);
-            }}
-            onSuccess={() => {
-              setIsModalOpen(false);
-              getModels();
-            }}
-          />
+          <ModelForm onCancel={() => setIsModalOpen(false)} onSuccess={() => setIsModalOpen(false)} />
         </Modal>
       </div>
     </ConstructLayout>
   );
 }
-
-export default Models;

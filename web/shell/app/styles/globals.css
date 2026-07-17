@@ -55,3 +55,61 @@ body {
 #root {
   min-height: 100dvh;
 }
+
+/* Construct layout tab styling - mirrors web/new-components/layout/style.css
+ * for the shell-native ConstructLayout. Removed together with the legacy
+ * layout once all construct routes migrate (ADR 0002 §阶段 3). */
+.construct-tabs.tabs-dark .ant-tabs-tab {
+  color: #94a3b8;
+}
+
+.construct-tabs.tabs-dark .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white !important;
+}
+
+.construct-tabs.tabs-dark .ant-tabs-ink-bar {
+  background-color: white;
+}
+
+.construct-tabs.scrollable-tabs.ant-tabs {
+  height: 100%;
+}
+
+.construct-tabs.scrollable-tabs .ant-tabs-content-holder {
+  flex: auto;
+  min-height: 0;
+  overflow: auto !important;
+}
+
+.construct-tabs.scrollable-tabs .ant-tabs-content {
+  height: auto !important;
+}
+
+.construct-tabs.scrollable-tabs .ant-tabs-tabpane {
+  height: auto !important;
+}
+
+/* Prompt list table layout - replaces web/pages/construct/prompt/styles.module.css
+ * for the shell-native list page. Removed once the prompt domain finishes
+ * stage 3 (ADR 0002). */
+.prompt-container table {
+  display: table;
+}
+
+/* Prompt edit page card layout - replaces the operate-container rules from
+ * the same legacy module. */
+.prompt-operate-container .ant-card-head {
+  min-height: fit-content;
+  padding: 5px 0 5px 20px;
+}
+
+.prompt-operate-container .ant-card-head-title {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.prompt-operate-container .ant-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

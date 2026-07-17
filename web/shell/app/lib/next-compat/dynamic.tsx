@@ -11,12 +11,20 @@
  * next/dynamic consumers in this repo render today.
  */
 
-import type { ComponentType, LazyExoticComponent, ReactNode } from 'react';
-import { lazy } from 'react';
+import type { ComponentType, ReactNode } from 'react';
+import { Suspense, createElement, isValidElement, lazy } from 'react';
 
 export interface DynamicOptions<T = unknown> {
-  loading?: ReactNode;
+  loading?: ReactNode | ComponentType<DynamicLoadingProps>;
   ssr?: boolean;
+}
+
+export interface DynamicLoadingProps {
+  error?: Error | null;
+  isLoading?: boolean;
+  pastDelay?: boolean;
+  retry?: () => void;
+  timedOut?: boolean;
 }
 
 export interface LoadableGeneratedOptions {
@@ -37,14 +45,34 @@ type DynamicImport<T> = () => Promise<{ default: ComponentType<T> }>;
  * but accepted. `loading` is accepted for API parity but ignored - callers
  * wrap their own Suspense boundary. Revisit if a legacy caller regresses.
  */
-export function dynamic<T>(
+export function dynamic<T extends object = Record<string, never>>(
   loader: DynamicImport<T>,
   options: DynamicOptions<T> & LoadableGeneratedOptions = {},
-): LazyExoticComponent<ComponentType<T>> {
+): ComponentType<T> {
   void options.ssr;
-  void options.loading;
   void options.loadableGenerated;
-  return lazy(loader);
+
+  const LazyComponent = lazy(loader);
+
+  function DynamicComponent(props: T) {
+    const Loading = options.loading;
+    const LazyComponentForRender = LazyComponent as unknown as ComponentType<Record<string, unknown>>;
+    const fallback =
+      typeof Loading === 'function'
+        ? createElement(Loading, { isLoading: true })
+        : isValidElement(Loading)
+          ? Loading
+          : null;
+
+    return (
+      <Suspense fallback={fallback}>
+        {createElement(LazyComponentForRender, props as Record<string, unknown>)}
+      </Suspense>
+    );
+  }
+
+  DynamicComponent.displayName = 'NextDynamicCompat';
+  return DynamicComponent;
 }
 
 export default dynamic;

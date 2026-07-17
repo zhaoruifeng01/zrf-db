@@ -1,11 +1,13 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useRouteError } from 'react-router';
 import { App as AntdApp, ConfigProvider } from 'antd';
+import type { ReactElement } from 'react';
 import { useEffect } from 'react';
 
 import { bootApi } from '~/lib/api';
 import { bootI18n } from '~/lib/i18n';
 import { QueryProvider } from '~/lib/query';
 import { applyThemeClass, usePreferences } from '~/store/preferences';
+import { ChatContextProvider } from '@/app/chat-context';
 import { getAntdTheme } from '@/design-tokens';
 
 import '~/styles/globals.css';
@@ -54,7 +56,18 @@ export default function App() {
   // Boot the shared API client and i18n once on first render.
   bootApi();
   bootI18n();
-  return <Outlet />;
+  return (
+    <BrowserOnlyChatContextProvider>
+      <Outlet />
+    </BrowserOnlyChatContextProvider>
+  );
+}
+
+function BrowserOnlyChatContextProvider({ children }: { children: ReactElement }) {
+  if (typeof window === 'undefined') {
+    return children;
+  }
+  return <ChatContextProvider>{children}</ChatContextProvider>;
 }
 
 /**

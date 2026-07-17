@@ -18,4 +18,7 @@ export default [
   { path: '/governance', file: 'routes/governance.tsx' },
   { path: '/conversations', file: 'routes/conversations.tsx' },
   { path: '/chat', file: 'routes/chat.tsx' },
+  { path: '/construct/models', file: 'routes/construct-models.tsx' },
+  { path: '/construct/prompt', file: 'routes/construct-prompt.tsx' },
+  { path: '/construct/prompt/:type', file: 'routes/construct-prompt.$type.tsx' },
 ] satisfies RouteConfig;

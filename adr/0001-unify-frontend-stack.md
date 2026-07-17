@@ -5,7 +5,7 @@
 - **Decision owner:** DB-GPT frontend
 - **Supersedes:** 无
 - **Superseded by:** 无
-- **Related:** `架构评审-2026-07-17.md`（评审全文）、`架构评审-2026-07-16.md`
+- **Related:** `adr/0002-frontend-route-migration-playbook.md`（迁移执行规范）、`架构评审-2026-07-17.md`（评审全文）、`架构评审-2026-07-16.md`
 
 ## Context
 
