@@ -1,9 +1,19 @@
 # 前端路由迁移进度
 
-- **Status:** Living document（随迁移推进持续更新）
+- **Status:** Living document（随迁移推进持续更新）⚠️ 已被现实核查修正,见下方声明
 - **Date:** 2026-07-17 起维护
 - **Owner:** DB-GPT frontend
-- **Related:** `adr/0001-unify-frontend-stack.md`（决策）、`adr/0002-frontend-route-migration-playbook.md`（执行规范）
+- **Related:** `adr/0001-unify-frontend-stack.md`（决策）、`adr/0002-frontend-route-migration-playbook.md`（执行规范）、`adr/frontend-migration-reality-check.md`（**现实核查,优先阅读**）
+
+> ## ⚠️ 重要更正(2026-07-20)
+>
+> 本文档下方把全部 34 条路由标为 `complete`,但该状态语义是"路由模块已建 + 旧 Next page 已删 + 静态门禁通过",**不含"用户可在 UI 中到达并使用该功能"**。
+>
+> **运行时实际情况:跑起来的 shell 只能渲染一个聊天界面(`/`、`/chat`),其余 28 条路由虽有代码但 UI 无入口可达。** 根因是 shell 根布局 `root.tsx` 只是 provider 栈 + `<Outlet/>`,从未接入全局导航(旧 `new-components/layout/{Header,Sider}.tsx` 在 shell 中零引用),且 `ChatSider` 只跳 `/chat`、不导航到其他模块。
+>
+> 因此真实迁移完成度约 40%(路由+feature 源码层完成,应用壳/全局导航层缺失,Next.js 框架未拆除)。**在本文档与 `frontend-migration-reality-check.md` 冲突时,以 reality-check 为准。** 在 shell 能完整替代旧 app 之前,`old_web` 产物与 legacy 启动模式必须保留。
+>
+> 完整现实清单、证据链与可达性真值表见 [`adr/frontend-migration-reality-check.md`](./frontend-migration-reality-check.md)。
 
 本文档按 ADR 0002 的"一个领域切片、四个阶段、一次完整删除"模型跟踪每条路由的迁移状态。状态取值：
 
